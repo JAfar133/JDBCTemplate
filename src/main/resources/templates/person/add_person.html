@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" type="text/css" th:href="@{styles/css/style.css}"/>
+</head>
+<body>
+  <form th:action="@{/people}" method="post" th:object="${person}">
+  <label for="fio">Fio</label>
+  <input type="text" id="fio" th:field="*{fio}"/>
+  <div style="color:red" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}"/>
+  <br>
+
+  <br>
+  <label for="year">Year</label>
+  <input th:field="*{year}" type="text" id="year"/>
+  <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"/>
+
+  <br>
+
+  <input type = "submit" value="add person"/>
+</form>
+</body>
+</html>

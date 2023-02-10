@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Peoples</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{styles/css/table.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{styles/css/style.css}"/>
+</head>
+<body>
+<p>peoples</p>
+<div class="pizda">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>fio</th>
+                <th>Year of birthday</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="person: ${people}">
+                <td th:text="${person.person_id}"></td>
+                <td th:text="${person.fio}"></td>
+                <td th:text="${person.year}"></td>
+                <td class="omg"> <a th:href="@{/people/{id}(id=${person.person_id})}" class="page">Go to page</a></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<a href="/people/new" class="butt">Add person</a>
+<a href="/book" class="butt">Go to books</a>
+
+</body>
+</html>

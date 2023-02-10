@@ -1,0 +1,31 @@
+.butt {
+    border: 1px solid #333; /* Рамка */
+    display: inline-block;
+    padding: 5px 15px; /* Поля */
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+}
+.butt:hover{
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #C7EB5C); /* Градиент */
+    color: #a00;
+}
+.pizda {
+    display: flex;
+    flex-direction: row;
+}
+.page {
+    width: 100%;
+    height: 100%;
+    padding: 5px 5px;
+    display: inline-block;
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+}
+
+.omg:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #C7EB5C); /* Градиент */
+    color: #a00;
+}
+

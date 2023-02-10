@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${book.book_id}">Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{styles/css/style.css}"/>
+</head>
+<body>
+<span th:text="${book.name}"></span>
+<span th:text="${book.author}"></span>
+<span th:text="${book.year}"></span>
+<span>года выпуска</span>
+<form th:method="patch" th:action="@{/book/{id}/give(id=${book.book_id})}">
+    <div th:if="${personWhoUsingBook!=null}">
+      <span th:text="${'The book id busy reading it '+ personWhoUsingBook.fio}"></span>
+        <input type="submit" name="freeBook" value="free that book">
+    </div>
+    <div th:unless="${personWhoUsingBook!=null}">
+
+        <label for="person">give a book</label>
+        <select th:object="${person}" th:field="*{person_id}" id="person">
+          <option th:each="person: ${people}" th:value="${person.person_id}" th:text="${person.fio}"></option>
+        </select>
+        <input type="submit" name="give" value="Give a book to reader"/>
+    </div>
+
+</form>
+<div class="pizda">
+    <a th:href="@{/book/edit/{id}(id=${book.book_id})}" class="butt">Edit</a>
+    <a th:href="@{/book}" class="butt">return to books</a>
+</div>
+</body>
+</html>

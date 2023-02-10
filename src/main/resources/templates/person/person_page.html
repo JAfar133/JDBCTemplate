@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${person.person_id}">Title</title>
+
+    <link th:rel="stylesheet" type="text/css" th:href="@{styles/css/main.css}"/>
+    <link th:rel="stylesheet" type="text/css" th:href="@{styles/css/style.css}"/>
+</head>
+<body>
+    <span th:text="${person.fio}"></span>
+    <span th:text="${person.year}"></span>
+    <span>года рождения</span>
+
+    <div th:if="${!books.isEmpty()}">
+        <h3>Его книги:</h3>
+        <li th:each="book : ${books}">
+            <a th:href="@{/book/{id}(id=${book.book_id})}" th:text="${book.name + ' - ' + book.author + '  ' + book.year}"></a>
+        </li>
+    </div>
+    <h3 th:if="${books.isEmpty()}">У пользователя пока нет книг</h3>
+    <a th:href="@{/people}">return to people</a>
+</body>
+</html>
