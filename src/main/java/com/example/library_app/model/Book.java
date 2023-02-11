@@ -6,11 +6,11 @@ import jakarta.validation.constraints.NotEmpty;
 public class Book {
 
     private int book_id;
-    @NotEmpty
+    @NotEmpty(message = "Name shouldn't be empty")
     private String name;
-    @NotEmpty
+    @NotEmpty(message = "author shouldn't be empty")
     private String author;
-    @Max(value = 2023,message = "please enter correct release year")
+    @Max(value = 2023, message = "please enter correct release year")
     private int year;
 
     public Book(int book_id, String name, String author, int year) {

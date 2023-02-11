@@ -4,6 +4,7 @@
     padding: 5px 15px; /* Поля */
     text-decoration: none; /* Убираем подчёркивание */
     color: #000; /* Цвет текста */
+    margin: 5px;
 }
 .butt:hover{
     box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
@@ -28,4 +29,15 @@
     background: linear-gradient(to bottom, #fcfff4, #C7EB5C); /* Градиент */
     color: #a00;
 }
+input .butt{
+    height:30px;
+    color:white;
+    background: #aa0000;
+}
+input .butt:hover{
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #C7EB5C); /* Градиент */
+    color: #a00;
+}
+
 

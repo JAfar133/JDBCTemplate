@@ -27,6 +27,10 @@ public class BookDAO {
         return jdbcTemplate.query("select * from book where book_id=?",new Object[]{id},
                 new BeanPropertyRowMapper<>(Book.class)).stream().findAny();
     }
+    public Optional<Book> showBook(String name){
+        return jdbcTemplate.query("select * from book where name=?",new Object[]{name},
+                new BeanPropertyRowMapper<>(Book.class)).stream().findAny();
+    }
 
     public void addBook(Book book){
         jdbcTemplate.update("insert into book(name,author,year) values(?,?,?)",
@@ -54,6 +58,7 @@ public class BookDAO {
     public void freeBook(int book_id){
         jdbcTemplate.update("update book set person_id=null where book_id=?",book_id);
     }
+
 
 
 }

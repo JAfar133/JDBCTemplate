@@ -8,24 +8,19 @@
     <link rel="stylesheet" type="text/css" th:href="@{styles/css/style.css}"/>
 </head>
 <body>
-<form th:action="@{/book/{id}/edit(id=${book.book_id})}" th:method="PATCH" th:object="${book}">
-    <label for="name">Name</label>
-    <input type="text" id="name" th:field="*{name}"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+<form th:action="@{/people/{id}/edit(id=${person.person_id})}" th:method="PATCH" th:object="${person}">
+    <label for="fio">FIO</label>
+    <input type="text" id="fio" th:field="*{fio}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}"/>
     <br>
 
-    <label for="author">Author</label>
-    <input th:field="*{author}" type="text" id="author"/>
-    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"/>
-
-    <br>
     <label for="year">Year</label>
     <input th:field="*{year}" type="text" id="year"/>
     <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"/>
 
     <br>
 
-    <input type = "submit" value="edit book"/>
+    <input type = "submit" value="edit person"/>
 </form>
 </body>
 </html>

@@ -29,6 +29,10 @@ public class PersonDAO {
         return jdbcTemplate.query("select * from person where person_id=?",new Object[]{id},
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
+    public Optional<Person> showPerson(String name){
+        return jdbcTemplate.query("select * from person where fio=?",new Object[]{name},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
 
     public void addPerson(Person person){
         jdbcTemplate.update("insert into person(fio,year) values(?,?)",
@@ -36,7 +40,7 @@ public class PersonDAO {
     }
 
     public void deletePerson(int id){
-        jdbcTemplate.update("delete from book where person_id=?",id);
+        jdbcTemplate.update("delete from person where person_id=?",id);
     }
 
     public void updatePerson(int id, Person person){
@@ -46,5 +50,9 @@ public class PersonDAO {
     public List<Book> getPersonBooks(int id){
         return jdbcTemplate.query("select * from book where person_id=?",
                 new Object[]{id},new BeanPropertyRowMapper<Book>(Book.class));
+    }
+    public List<Book> showFreeBooks(){
+        return jdbcTemplate.query("select * from book where person_id is null",
+                new BeanPropertyRowMapper<Book>(Book.class));
     }
 }

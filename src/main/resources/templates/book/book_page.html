@@ -6,15 +6,13 @@
     <link rel="stylesheet" type="text/css" th:href="@{styles/css/style.css}"/>
 </head>
 <body>
-<span th:text="${book.name}"></span>
-<span th:text="${book.author}"></span>
-<span th:text="${book.year}"></span>
-<span>года выпуска</span>
+<h2 th:text="${book.name+' '+book.author+' ' + book.year+' year of realise'}"></h2>
 <form th:method="patch" th:action="@{/book/{id}/give(id=${book.book_id})}">
     <div th:if="${personWhoUsingBook!=null}">
       <span th:text="${'The book id busy reading it '+ personWhoUsingBook.fio}"></span>
         <input type="submit" name="freeBook" value="free that book">
     </div>
+    <br>
     <div th:unless="${personWhoUsingBook!=null}">
 
         <label for="person">give a book</label>
@@ -25,9 +23,13 @@
     </div>
 
 </form>
+<br>
 <div class="pizda">
     <a th:href="@{/book/edit/{id}(id=${book.book_id})}" class="butt">Edit</a>
     <a th:href="@{/book}" class="butt">return to books</a>
+    <form th:method="delete" th:action="@{/book/{id}/delete(id=${book.book_id})}">
+        <input type="submit" style="height:30px;color:white; background: #aa0000" class="butt" value="delete book">
+    </form>
 </div>
 </body>
 </html>

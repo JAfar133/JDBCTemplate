@@ -4,10 +4,13 @@ import com.example.library_app.DAO.BookDAO;
 import com.example.library_app.DAO.PersonDAO;
 import com.example.library_app.model.Book;
 import com.example.library_app.model.Person;
+import com.example.library_app.util.BookValidator;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -17,11 +20,13 @@ public class BookController {
 
     private final BookDAO bookDAO;
     private final PersonDAO personDAO;
+    private final BookValidator bookValidator;
 
     @Autowired
-    public BookController(BookDAO bookDAO, PersonDAO personDAO) {
+    public BookController(BookDAO bookDAO, PersonDAO personDAO, BookValidator bookValidator) {
         this.bookDAO = bookDAO;
         this.personDAO = personDAO;
+        this.bookValidator = bookValidator;
     }
     @GetMapping
     public String showBooksPage(Model model){
@@ -54,7 +59,10 @@ public class BookController {
     }
 
     @PostMapping
-    public String addBook(@ModelAttribute("book") Book book, Model model){
+    public String addBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult, Model model){
+        bookValidator.validate(book,bindingResult);
+        if(bindingResult.hasErrors()) return "/book/new";
+
         bookDAO.addBook(book);
 
         return "redirect:/book";
@@ -65,12 +73,16 @@ public class BookController {
                             @PathVariable("id") int id, HttpServletRequest request){
         String give = request.getParameter("give");
         String free = request.getParameter("freeBook");
-        String edit = request.getParameter("edit");
         if(give!=null)
             bookDAO.giveBookToPerson(id, person.getPerson_id());
         else if(free!=null)
             bookDAO.freeBook(id);
 
+        return "redirect:/book/"+id;
+    }
+    @DeleteMapping("/{id}/delete")
+    public String delBook(@PathVariable("id") int id){
+        bookDAO.deleteBook(id);
         return "redirect:/book";
     }
 
@@ -81,9 +93,10 @@ public class BookController {
         return "book/edit";
     }
 
-    @PostMapping("/{id}/edit")
-    public String editBook(@ModelAttribute("book") Book book,
+    @PatchMapping("/{id}/edit")
+    public String editBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
                            @PathVariable("id") int id){
+        if(bindingResult.hasErrors()) return "/book/edit";
         bookDAO.updateBook(id,book);
         return "redirect:/book";
     }

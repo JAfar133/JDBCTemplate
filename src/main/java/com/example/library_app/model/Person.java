@@ -1,17 +1,16 @@
 package com.example.library_app.model;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class Person {
 
     private int person_id;
-    @NotEmpty
+    @NotEmpty(message = "fio shouldn't be empty")
     @Pattern(regexp = "[A-Z]\\w+ *[A-Z]\\w+ *[A-Z]\\w+",message = "not valid fio")
     private String fio;
 
-    @Size(min = 1900, max=2022, message = "please enter valid year of birth")
+    @Min(value = 1900, message = "please enter valid year of birth")
+    @Max(value = 2023, message = "please enter valid year of birth")
     private int year;
 
     public Person(int person_id, String fio, int year) {

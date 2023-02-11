@@ -8,17 +8,41 @@
     <link th:rel="stylesheet" type="text/css" th:href="@{styles/css/style.css}"/>
 </head>
 <body>
-    <span th:text="${person.fio}"></span>
-    <span th:text="${person.year}"></span>
-    <span>года рождения</span>
+    <h2 th:text="${person.fio+' '+person.year + ' year of birth'}"></h2>
 
     <div th:if="${!books.isEmpty()}">
         <h3>Его книги:</h3>
         <li th:each="book : ${books}">
             <a th:href="@{/book/{id}(id=${book.book_id})}" th:text="${book.name + ' - ' + book.author + '  ' + book.year}"></a>
         </li>
+        <br>
     </div>
-    <h3 th:if="${books.isEmpty()}">У пользователя пока нет книг</h3>
-    <a th:href="@{/people}">return to people</a>
+    <div th:if="${books.isEmpty()}">
+        <h3>У пользователя пока нет книг</h3>
+    </div>
+    <div>
+        <form th:action="@{/people/{id}/add(id=${person.person_id})}" th:method="patch">
+            <label for="book">give a free book</label>
+            <div th:if="${!free_books.isEmpty()}">
+                <select th:object="${book}" th:field="*{book_id}" id="book">
+                    <option th:each="book: ${free_books}" th:value="${book.book_id}" th:text="${book.name}"></option>
+                </select>
+                <input type="submit" name="give" value="Give a book to reader"/>
+            </div>
+            <div th:if="${free_books.isEmpty()}">
+                <select>
+                    <option>No free books</option>
+                </select>
+            </div>
+        </form>
+        <br>
+    </div>
+    <div class="pizda">
+        <a th:href="@{/people/edit/{id}(id=${person.person_id})}" class="butt" >Edit</a>
+        <a th:href="@{/people}" class="butt">return to people</a>
+        <form th:method="delete" th:action="@{/people/{id}/delete(id=${person.person_id})}">
+            <input type="submit"  class="butt" value="delete person">
+        </form>
+    </div>
 </body>
 </html>
